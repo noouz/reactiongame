@@ -1,0 +1,21 @@
+$bg_color: rgb(232, 218, 201);
+$font_color:#1d191a;
+$box_size:140px;
+
+
+body{
+    background-color: $bg_color;
+    color: $font_color;
+
+    p{
+        font-weight: bold;
+    }
+
+    #box{
+        width: $box_size;
+        height: $box_size;
+        background-color: red;
+        position: relative;
+        display: none;
+    }
+}

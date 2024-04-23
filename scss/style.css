@@ -1,0 +1,14 @@
+body {
+  background-color: rgb(232, 218, 201);
+  color: #1d191a;
+}
+body p {
+  font-weight: bold;
+}
+body #box {
+  width: 140px;
+  height: 140px;
+  background-color: red;
+  position: relative;
+  display: none;
+}

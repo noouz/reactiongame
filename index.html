@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="scss/style.css">
+    <title>考反應遊戲</title>
+</head>
+<body>
+    <h1>考考你的反應!</h1>
+    <p>反應時間: <span id="reaction">0</span>秒 </p>
+    <div id="box"></div>
+
+    <script>
+
+        let box = document.querySelector('#box');
+        let title = document.querySelector('h1');
+        let paragraph = document.querySelector('p');
+        let reaction = document.querySelector('#reaction') ;
+        //算size
+        function getFullHeight(block) {
+            let height = block.offsetHeight;
+            let style = window.getComputedStyle(block);
+            height += parseInt(style.marginTop) + parseInt(style.marginBottom);
+            return height;
+        }
+        
+        //給予隨機值
+        function getRandomRanger(min,max){
+            let difference = max - min;
+            let  rand = Math.random();
+            rand = Math.floor(rand * difference) + 1 + min;
+
+            return rand;
+        }
+
+        let myBox = {
+            display: 'none',
+            makeBox: function(){
+                let time = Math.random();
+                time = Math.floor(time * 2000) + 1;
+
+                setTimeout(function(){  //setTimeout延遲function一次
+                    
+                    if (Math.random() > 0.5){
+                        box.style.borderRadius = "70px";
+                    }else{
+                        box.style.borderRadius = "0px";
+                    }
+
+                    let green = getRandomRanger(50,200);
+                    let color = "rgba(255," + green + ", 100, 1)";
+                    box.style.backgroundColor = color;
+
+                    box.style.display = "block";
+
+                    //算size
+                    let box_size = getFullHeight(box);
+                    let h1_size = getFullHeight(title);
+                    let p_size = getFullHeight(paragraph);
+                    let remain_height = box_size + h1_size + p_size;
+            
+                    let top = Math.floor(Math.random() * (window.innerHeight - remain_height ) + 1);
+                    let left = Math.floor(Math.random() * (window.innerWidth - box_size ) + 1);
+                    
+                    box.style.top = top + "px";
+                    box.style.left = left + "px";
+
+                    timer.createdTime = Date.now();
+                }, time);
+            }
+        }
+
+        let timer = {
+            clickedTime:0,
+            createdTime:0,
+            reactionTime:0
+        }
+
+        box.onclick = function(){
+            box.style.display = myBox.display;
+            timer.clickedTime = Date.now(); // 1970/01/01 00:00:00 UTC 起經過的毫秒數
+            timer.reactionTime = (timer.clickedTime - timer.createdTime) / 1000;
+            reaction.innerHTML = timer.reactionTime;
+            myBox.makeBox();
+        }
+
+        myBox.makeBox();
+
+    </script>
+
+
+</body>
+</html>
